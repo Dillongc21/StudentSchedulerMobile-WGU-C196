@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Student Scheduler</string>
+    <string name="terms_list_header">Terms</string>
+    <string name="terms_list_empty_msg">No Terms Exist</string>
+    <string name="terms_list_add_btn">Add Term</string>
+    <string name="homeImgDesc">calendar</string>
+    <string name="homeTxt">Student Scheduler</string>
+    <string name="home_btn">See All Terms</string>
+    <string name="termDetailTitle">Term Title</string>
+    <string name="termDetailsTitleLabel">Title:</string>
+    <string name="termDetailsStartLabel">Start Date:</string>
+    <string name="termDetailsEndLabel">End Date:</string>
+    <string name="termDetailsCancelBtn">Cancel</string>
+    <string name="termDetailsSaveBtn">Save</string>
+    <string name="coursesListEditBtn">Edit Term</string>
+    <string name="coursesListDeleteBtn">Delete Term</string>
+</resources>
