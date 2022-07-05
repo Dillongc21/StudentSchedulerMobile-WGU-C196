@@ -1,6 +1,8 @@
 package com.studentscheduler.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +10,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.studentscheduler.R;
+import com.studentscheduler.db.Repository;
+import com.studentscheduler.entity.Course;
+import com.studentscheduler.entity.Term;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class CoursesList extends AppCompatActivity {
 
@@ -36,9 +43,20 @@ public class CoursesList extends AppCompatActivity {
         termEndView = findViewById(R.id.coursesListTermEnd);
 
         id = getIntent().getIntExtra("id", -1);
+
+        Repository repo = new Repository(getApplication());
+
+        Term displayTerm = repo.getAllTerms().stream()
+                .filter(term -> term.getTermId() == id)
+                .collect(Collectors.toList()).get(0);
+/*
         title = getIntent().getStringExtra("title");
         Date start = (Date)getIntent().getSerializableExtra("start");
         Date end = (Date)getIntent().getSerializableExtra("end");
+*/
+        title = displayTerm.getTitle();
+        Date start = displayTerm.getStart();
+        Date end = displayTerm.getEnd();
 
         String myFormat = "MM/dd/yy";
         sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -48,6 +66,13 @@ public class CoursesList extends AppCompatActivity {
         termTitleView.setText(title);
         termStartView.setText(startFormatted);
         termEndView.setText(endFormatted);
+
+        RecyclerView recyclerView = findViewById(R.id.coursesListRecyclerView);
+        List<Course> courses = repo.getAllCourses();
+        final CourseAdapter adapter = new CourseAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setCourses(courses);
     }
 
 

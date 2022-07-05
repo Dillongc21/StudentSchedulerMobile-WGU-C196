@@ -11,18 +11,18 @@ public class Course {
     @PrimaryKey(autoGenerate = true)
     private int courseId;
 
+    private String title;
     private Date start;
     private Date end;
-    private Status status;
+    private String status;
     private String instructorName;
     private String instructorPhone;
     private String instructorEmail;
     private int associatedTermId;
-    private String notes;
 
-    public Course(Date start, Date end, Status status, String instructorName,
-                  String instructorPhone, String instructorEmail, int associatedTermId,
-                  String notes) {
+    public Course(String title, Date start, Date end, String status, String instructorName,
+                  String instructorPhone, String instructorEmail, int associatedTermId) {
+        this.title = title;
         this.start = start;
         this.end = end;
         this.status = status;
@@ -30,12 +30,13 @@ public class Course {
         this.instructorPhone = instructorPhone;
         this.instructorEmail = instructorEmail;
         this.associatedTermId = associatedTermId;
-        this.notes = notes;
     }
 
     public int getCourseId() {
         return courseId;
     }
+
+    public String getTitle() { return title; }
 
     public Date getStart() {
         return start;
@@ -45,7 +46,7 @@ public class Course {
         return end;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -65,12 +66,12 @@ public class Course {
         return associatedTermId;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
     public void setCourseId(int courseId) {
         this.courseId = courseId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setStart(Date start) {
@@ -81,7 +82,7 @@ public class Course {
         this.end = end;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -99,10 +100,6 @@ public class Course {
 
     public void setAssociatedTermId(int associatedTermId) {
         this.associatedTermId = associatedTermId;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 
     @Override

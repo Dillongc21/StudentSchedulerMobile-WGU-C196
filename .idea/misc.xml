@@ -6,13 +6,16 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.271" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.271" />
         <entry key="app/src/main/res/layout/activity_assessment_list.xml" value="0.30932971014492755" />
+        <entry key="app/src/main/res/layout/activity_assessments_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_course_details.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/activity_courses_list.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.30932971014492755" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_term_details.xml" value="0.30932971014492755" />
         <entry key="app/src/main/res/layout/activity_terms_list.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/course_list_item.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/term_list_item.xml" value="0.30932971014492755" />
+        <entry key="app/src/main/res/menu/menu_coursedetails.xml" value="0.359375" />
         <entry key="app/src/main/res/menu/menu_termdetails.xml" value="0.25833333333333336" />
       </map>
     </option>

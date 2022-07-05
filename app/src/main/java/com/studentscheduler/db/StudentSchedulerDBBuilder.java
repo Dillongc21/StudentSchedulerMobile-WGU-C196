@@ -18,7 +18,7 @@ import com.studentscheduler.entity.Assessment;
 import com.studentscheduler.entity.Course;
 import com.studentscheduler.entity.Term;
 
-@Database(entities={Term.class, Course.class, Assessment.class}, version=2, exportSchema = false)
+@Database(entities={Term.class, Course.class, Assessment.class}, version=4, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class StudentSchedulerDBBuilder extends RoomDatabase {
     public abstract TermDao termDao();

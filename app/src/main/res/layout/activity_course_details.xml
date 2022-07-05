@@ -7,172 +7,179 @@
     android:padding="20dp"
     tools:context=".ui.CourseDetails">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/termDetailsTitleLabel"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/courseDetailsTitleField"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title"
-                android:textSize="24sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termDetailsTitleLabel"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/courseDetailsTitleField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termDetailsStartLabel"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/courseDetailsStartField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termDetailsEndLabel"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/courseDetailsEndField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status:"
+                    android:textSize="24sp" />
+                <Spinner
+                    android:id="@+id/courseDetailsStatusSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Instructor Name"
+                    android:textSize="24sp" />
+                <EditText
+                    android:id="@+id/courseDetailsInstructorNameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Instructor Phone:"
+                    android:textSize="24sp" />
+                <EditText
+                    android:id="@+id/courseDetailsInstructorPhoneField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Instructor Email:"
+                    android:textSize="24sp" />
+                <EditText
+                    android:id="@+id/courseDetailsInstructorEmailField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Course Term:"
+                    android:textSize="24sp" />
+                <Spinner
+                    android:id="@+id/courseDetailsTermSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/courseDetailsCancelBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="cancelActivity"
+                android:text="@string/termDetailsCancelBtn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/courseDetailsSaveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="saveCourse"
+                android:text="@string/termDetailsSaveBtn"
+                app:layout_constraintBottom_toTopOf="@+id/courseDetailsCancelBtn"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/termDetailsStartLabel"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/courseDetailsStartField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/termDetailsEndLabel"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/courseDetailsEndField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status:"
-                android:textSize="24sp" />
-            <Spinner
-                android:id="@+id/courseDetailsStatusSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Instructor Name"
-                android:textSize="24sp" />
-            <EditText
-                android:id="@+id/courseDetailsInstructorNameField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Instructor Phone:"
-                android:textSize="24sp" />
-            <EditText
-                android:id="@+id/courseDetailsInstructorPhoneField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Instructor Email:"
-                android:textSize="24sp" />
-            <EditText
-                android:id="@+id/courseDetailsInstructorEmailField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Course Term:"
-                android:textSize="24sp" />
-            <Spinner
-                android:id="@+id/courseDetailsTermSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/courseDetailsCancelBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goToCourseListActivity"
-        android:text="@string/termDetailsCancelBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/courseDetailsSaveBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="saveCourse"
-        android:text="@string/termDetailsSaveBtn"
-        app:layout_constraintBottom_toTopOf="@+id/courseDetailsCancelBtn"
-        app:layout_constraintStart_toStartOf="parent" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

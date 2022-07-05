@@ -86,7 +86,7 @@
         android:id="@+id/termDetailsCancelBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="goToTermsListActivity"
+        android:onClick="cancelActivity"
         android:text="@string/termDetailsCancelBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

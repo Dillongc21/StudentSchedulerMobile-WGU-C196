@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.studentscheduler.R;
 import com.studentscheduler.db.Repository;
@@ -136,23 +137,54 @@ public class TermDetails extends AppCompatActivity {
         endField.setText(sdf.format(endCalendar.getTime()));
     }
 
-    public void goToTermsListActivity(View view) {
-        Intent intent = new Intent(TermDetails.this, TermsList.class);
-        startActivity(intent);
+    public void cancelActivity(View view) {
+        this.finish();
     }
 
     public void saveTerm(View view) {
+        // Add New Term
         if(editTermId == -1) {
-            Term newTerm = new Term(titleField.getText().toString(), startCalendar.getTime(),
-                    endCalendar.getTime());
-            repo.insert(newTerm);
-        } else {
+            // Check for Duplicate Title
+            if (termTitleIsDuplicate()){
+                CharSequence toastText = "This title: \"" + titleField.getText().toString() + "\" "
+                        + "already exists. Please choose a different title.";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(this, toastText, duration);
+                toast.show();
+            } else {
+                Term newTerm = new Term(titleField.getText().toString(), startCalendar.getTime(),
+                        endCalendar.getTime());
+                repo.insert(newTerm);
+                Intent intent = new Intent(TermDetails.this, TermsList.class);
+                startActivity(intent);
+            }
+        }
+        // Edit term
+        else {
             Term termCopy = new Term(termToEdit);
             termCopy.setTitle(titleField.getText().toString());
             termCopy.setStart(startCalendar.getTime());
             termCopy.setEnd(endCalendar.getTime());
             repo.update(termCopy);
+            List<Term> updatedTerms = repo.getAllTerms();
+            int queryId = termCopy.getTermId();
+            Term updated = updatedTerms.stream()
+                    .filter(term -> term.getTermId() == queryId)
+                    .collect(Collectors.toList()).get(0);
+            Intent intent = new Intent(TermDetails.this, CoursesList.class);
+            intent.putExtra("id", updated.getTermId());
+            intent.putExtra("title", updated.getTitle());
+            intent.putExtra("start", updated.getStart());
+            intent.putExtra("end", updated.getEnd());
+            startActivity(intent);
         }
-        goToTermsListActivity(view);
     }
+
+    private boolean termTitleIsDuplicate() {
+        List<String> termTitles = repo.getAllTerms()
+                .stream().map(Term::getTitle)
+                .collect(Collectors.toList());
+        return  termTitles.contains(titleField.getText().toString());
+    }
+
 }
