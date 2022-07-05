@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,19 +25,19 @@ import java.util.stream.Collectors;
 
 public class TermDetails extends AppCompatActivity {
 
-    Repository repo;
+    private Repository repo;
 
-    EditText titleField;
-    EditText startField;
-    EditText endField;
+    private EditText titleField;
+    private EditText startField;
+    private EditText endField;
 
-    DatePickerDialog.OnDateSetListener startDateListener;
-    DatePickerDialog.OnDateSetListener endDateListener;
+    private DatePickerDialog.OnDateSetListener startDateListener;
+    private DatePickerDialog.OnDateSetListener endDateListener;
 
-    final Calendar startCalendar = Calendar.getInstance();
-    final Calendar endCalendar = Calendar.getInstance();
+    private final Calendar startCalendar = Calendar.getInstance();
+    private final Calendar endCalendar = Calendar.getInstance();
 
-    SimpleDateFormat sdf;
+    private SimpleDateFormat sdf;
 
     public static int editTermId;
     private Term termToEdit;
@@ -54,11 +56,15 @@ public class TermDetails extends AppCompatActivity {
         String myFormat = "MM/dd/yy";
         sdf = new SimpleDateFormat(myFormat, Locale.US);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if (editTermId == -1) {                         // Add Term
+            getSupportActionBar().setTitle("Add Term");
             String currentDate = sdf.format(new Date());
             startField.setText(currentDate);
             endField.setText(currentDate);
         } else {                                        // Edit Term
+            getSupportActionBar().setTitle("Edit Term");
             List<Term> termList = repo.getAllTerms();
             termToEdit = termList.stream()
                     .filter(term -> term.getTermId() == editTermId)
@@ -110,6 +116,18 @@ public class TermDetails extends AppCompatActivity {
         };
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_termdetails, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void updateStartField() {
         startField.setText(sdf.format(startCalendar.getTime()));

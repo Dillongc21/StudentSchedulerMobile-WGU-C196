@@ -4,26 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".ui.CoursesList">
+    tools:context=".ui.AssessmentsList">
 
     <TextView
-        android:id="@+id/coursesListTermTitle"
+        android:id="@+id/assessmentsListCourseTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Term Title"
+        android:text="Course Title"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/coursesListDatesArea"
+        android:id="@+id/assessmentsListDatesArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/coursesListTermTitle"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentsListCourseTitle"
         tools:layout_editor_absoluteX="20dp">
 
         <TextView
@@ -34,7 +33,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/coursesListTermStart"
+            android:id="@+id/assessmentsListCourseStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -49,7 +48,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/coursesListTermEnd"
+            android:id="@+id/assessmentsListCourseEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -62,16 +61,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/coursesListTermCoursesHeader"
-        android:text="Term Courses"
+        android:id="@+id/assessmentsListCourseAssessmentsHeader"
+        android:text="Course Assessments"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coursesListDatesArea" />
+        app:layout_constraintTop_toBottomOf="@id/assessmentsListDatesArea" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        app:layout_constraintTop_toBottomOf="@+id/coursesListTermCoursesHeader"
+        app:layout_constraintTop_toBottomOf="@id/assessmentsListCourseAssessmentsHeader"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/coursesListRecyclerView">
 
@@ -88,7 +87,7 @@
         app:srcCompat="@drawable/ic_baseline_add_24"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/coursesListRecyclerView"
-        android:onClick="goToAddCourse"
+        android:onClick="goToAddAssessment"
         />
 
     <Button
@@ -96,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/coursesListEditBtn"
-        android:onClick="goToEditTermDetails"
+        android:onClick="goToEditCourseDetails"
         app:layout_constraintTop_toBottomOf="@id/coursesListRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="10dp"

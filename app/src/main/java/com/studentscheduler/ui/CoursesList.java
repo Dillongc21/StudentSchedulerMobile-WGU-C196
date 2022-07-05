@@ -56,4 +56,11 @@ public class CoursesList extends AppCompatActivity {
         Intent intent = new Intent(CoursesList.this, TermDetails.class);
         startActivity(intent);
     }
+
+    public void goToAddCourse(View view) {
+        Intent intent = new Intent(CoursesList.this, CourseDetails.class);
+        intent.putExtra("termId", id);
+        intent.putExtra("courseId", -1);
+        startActivity(intent);
+    }
 }
