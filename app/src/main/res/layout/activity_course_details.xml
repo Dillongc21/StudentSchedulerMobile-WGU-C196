@@ -56,8 +56,21 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:textSize="24sp" />
+
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/courseDetailsStartNotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notify" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,6 +89,19 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/courseDetailsEndNotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notify" />
             </LinearLayout>
 
             <LinearLayout
@@ -159,27 +185,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/courseDetailsCancelBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="cancelActivity"
-                android:text="@string/termDetailsCancelBtn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/courseDetailsSaveBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="saveCourse"
-                android:text="@string/termDetailsSaveBtn"
-                app:layout_constraintBottom_toTopOf="@+id/courseDetailsCancelBtn"
-                app:layout_constraintStart_toStartOf="parent" />
-
         </LinearLayout>
 
-
     </ScrollView>
+
+    <Button
+        android:id="@+id/courseDetailsSaveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="saveCourse"
+        android:text="@string/termDetailsSaveBtn"
+        app:layout_constraintBottom_toTopOf="@+id/courseDetailsCancelBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/courseDetailsCancelBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="cancelActivity"
+        android:text="@string/termDetailsCancelBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

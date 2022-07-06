@@ -14,12 +14,24 @@
         android:theme="@style/Theme.StudentScheduler"
         tools:targetApi="31">
         <activity
+            android:name=".CourseNoteDetails"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CourseNoteDisplay"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AssessmentDetails"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AssessmentDisplay"
+            android:exported="false" />
+        <activity
             android:name=".ui.AssessmentsList"
             android:exported="false" />
         <activity
             android:name=".ui.CourseDetails"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.CoursesList"
             android:exported="false"
