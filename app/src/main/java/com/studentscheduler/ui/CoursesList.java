@@ -49,11 +49,7 @@ public class CoursesList extends AppCompatActivity {
         Term displayTerm = repo.getAllTerms().stream()
                 .filter(term -> term.getTermId() == id)
                 .collect(Collectors.toList()).get(0);
-/*
-        title = getIntent().getStringExtra("title");
-        Date start = (Date)getIntent().getSerializableExtra("start");
-        Date end = (Date)getIntent().getSerializableExtra("end");
-*/
+
         title = displayTerm.getTitle();
         Date start = displayTerm.getStart();
         Date end = displayTerm.getEnd();

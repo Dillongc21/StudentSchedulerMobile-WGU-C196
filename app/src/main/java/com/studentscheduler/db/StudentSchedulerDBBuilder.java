@@ -13,17 +13,20 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.studentscheduler.dao.AssessmentDao;
 import com.studentscheduler.dao.CourseDao;
+import com.studentscheduler.dao.CourseNoteDao;
 import com.studentscheduler.dao.TermDao;
 import com.studentscheduler.entity.Assessment;
 import com.studentscheduler.entity.Course;
+import com.studentscheduler.entity.CourseNote;
 import com.studentscheduler.entity.Term;
 
-@Database(entities={Term.class, Course.class, Assessment.class}, version=4, exportSchema = false)
+@Database(entities={Term.class, Course.class, Assessment.class, CourseNote.class}, version=5, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class StudentSchedulerDBBuilder extends RoomDatabase {
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
     public abstract AssessmentDao assessmentDao();
+    public abstract CourseNoteDao courseNoteDao();
 
     public static volatile StudentSchedulerDBBuilder INSTANCE;
 

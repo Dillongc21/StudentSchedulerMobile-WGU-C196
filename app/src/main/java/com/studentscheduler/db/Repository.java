@@ -4,9 +4,11 @@ import android.app.Application;
 
 import com.studentscheduler.dao.AssessmentDao;
 import com.studentscheduler.dao.CourseDao;
+import com.studentscheduler.dao.CourseNoteDao;
 import com.studentscheduler.dao.TermDao;
 import com.studentscheduler.entity.Assessment;
 import com.studentscheduler.entity.Course;
+import com.studentscheduler.entity.CourseNote;
 import com.studentscheduler.entity.Term;
 
 import java.util.List;
@@ -17,9 +19,11 @@ public class Repository {
     private final TermDao mTermDao;
     private final CourseDao mCourseDao;
     private final AssessmentDao mAssessmentDao;
+    private final CourseNoteDao mCourseNoteDao;
     private List<Term> mAllTerms;
     private List<Course> mAllCourses;
     private List<Assessment> mAllAssessments;
+    private List<CourseNote> mCourseNotes;
 
     private static final int NUM_THREADS=4;
     static final ExecutorService dbExecutor = Executors.newFixedThreadPool(NUM_THREADS);
@@ -29,6 +33,7 @@ public class Repository {
         mTermDao = db.termDao();
         mCourseDao = db.courseDao();
         mAssessmentDao = db.assessmentDao();
+        mCourseNoteDao = db.courseNoteDao();
     }
 
     // CREATE
@@ -55,6 +60,16 @@ public class Repository {
     public void insert(Assessment assessment) {
         dbExecutor.execute(() -> {
             mAssessmentDao.insert(assessment);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public void insert(CourseNote courseNote) {
+        dbExecutor.execute(() -> {
+            mCourseNoteDao.insert(courseNote);
         });
         try {
             Thread.sleep(1000);
@@ -97,6 +112,18 @@ public class Repository {
         }
         return mAllAssessments;
     }
+    public List<CourseNote> getCourseNotesByCourseId(int courseId) {
+        dbExecutor.execute(() -> {
+            mCourseNotes = mCourseNoteDao.getCourseNotesByCourseId(courseId);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mCourseNotes;
+    }
+
 
     // UPDATE
     public void update(Term term) {
@@ -129,6 +156,16 @@ public class Repository {
             e.printStackTrace();
         }
     }
+    public void update(CourseNote courseNote) {
+        dbExecutor.execute(() -> {
+            mCourseNoteDao.update(courseNote);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     // DELETE
     public void delete(Term term) {
@@ -154,6 +191,16 @@ public class Repository {
     public void delete(Assessment assessment) {
         dbExecutor.execute(() -> {
             mAssessmentDao.delete(assessment);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public void delete(CourseNote courseNote) {
+        dbExecutor.execute(() -> {
+            mCourseNoteDao.delete(courseNote);
         });
         try {
             Thread.sleep(1000);

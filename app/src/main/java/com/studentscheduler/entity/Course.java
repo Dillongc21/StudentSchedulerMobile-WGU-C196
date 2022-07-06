@@ -18,10 +18,10 @@ public class Course {
     private String instructorName;
     private String instructorPhone;
     private String instructorEmail;
-    private int associatedTermId;
+    private int termId;
 
     public Course(String title, Date start, Date end, String status, String instructorName,
-                  String instructorPhone, String instructorEmail, int associatedTermId) {
+                  String instructorPhone, String instructorEmail, int termId) {
         this.title = title;
         this.start = start;
         this.end = end;
@@ -29,7 +29,19 @@ public class Course {
         this.instructorName = instructorName;
         this.instructorPhone = instructorPhone;
         this.instructorEmail = instructorEmail;
-        this.associatedTermId = associatedTermId;
+        this.termId = termId;
+    }
+
+    public Course(Course course) {
+        courseId = course.courseId;
+        title = course.title;
+        start = course.start;
+        end = course.end;
+        status = course.status;
+        instructorName = course.instructorName;
+        instructorPhone = course.instructorPhone;
+        instructorEmail = course.instructorEmail;
+        termId = course.termId;
     }
 
     public int getCourseId() {
@@ -62,8 +74,8 @@ public class Course {
         return instructorEmail;
     }
 
-    public int getAssociatedTermId() {
-        return associatedTermId;
+    public int getTermId() {
+        return termId;
     }
 
     public void setCourseId(int courseId) {
@@ -98,8 +110,8 @@ public class Course {
         this.instructorEmail = instructorEmail;
     }
 
-    public void setAssociatedTermId(int associatedTermId) {
-        this.associatedTermId = associatedTermId;
+    public void setTermId(int termId) {
+        this.termId = termId;
     }
 
     @Override
@@ -112,7 +124,7 @@ public class Course {
                 ", instructorName='" + instructorName + '\'' +
                 ", instructorPhone='" + instructorPhone + '\'' +
                 ", instructorEmail='" + instructorEmail + '\'' +
-                ", associatedTermId=" + associatedTermId +
+                ", associatedTermId=" + termId +
                 '}';
     }
 }

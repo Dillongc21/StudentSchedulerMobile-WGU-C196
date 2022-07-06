@@ -168,7 +168,7 @@ public class CourseDetails extends AppCompatActivity {
             repo.insert(newCourse);
 
             Intent intent = new Intent(CourseDetails.this, CoursesList.class);
-            intent.putExtra("id", newCourse.getAssociatedTermId());
+            intent.putExtra("id", newCourse.getTermId());
             startActivity(intent);
         }
     }

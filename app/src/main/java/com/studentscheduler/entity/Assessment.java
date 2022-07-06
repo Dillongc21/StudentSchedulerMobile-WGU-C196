@@ -14,9 +14,9 @@ public class Assessment {
     private String title;
     private Date start;
     private Date end;
-    private AssessmentType type;
+    private String type;
 
-    public Assessment(String title, Date start, Date end, AssessmentType type) {
+    public Assessment(String title, Date start, Date end, String type) {
         this.title = title;
         this.start = start;
         this.end = end;
@@ -55,11 +55,11 @@ public class Assessment {
         this.end = end;
     }
 
-    public AssessmentType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(AssessmentType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
