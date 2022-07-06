@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="20dp"
     tools:context=".ui.AssessmentsList">
-
     <TextView
         android:id="@+id/assessmentsListCourseTitle"
         android:layout_width="match_parent"
@@ -78,7 +83,7 @@
 
     <LinearLayout
         android:id="@+id/assessmentsListInstructorArea1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/assessmentsListInstructorAreaHeader"
@@ -87,8 +92,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="10dp"
             android:text="Name:"
             android:textSize="18sp" />
 
@@ -96,7 +100,6 @@
             android:id="@+id/assessmentsListCourseInstructorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="[nameHere]"
             android:textSize="18sp" />
 
@@ -113,7 +116,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
             android:text="Phone:"
             android:textSize="18sp" />
 
@@ -121,41 +124,47 @@
             android:id="@+id/assessmentsListCourseInstructorPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="[phoneHere]"
             android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Email:"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/assessmentsListCourseInstructorEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="[emailHere]"
-            android:textSize="18sp" />
-
     </LinearLayout>
+        <LinearLayout
+            android:id="@+id/assessmentsListInstructorArea3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/assessmentsListInstructorArea2"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Email:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/assessmentsListCourseInstructorEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[emailHere]"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/assessmentsListStatusArea"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentsListInstructorArea2"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentsListInstructorArea3"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
             android:text="Status:"
             android:textSize="18sp" />
 
@@ -163,7 +172,6 @@
             android:id="@+id/assessmentsListCourseStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="[status]"
             android:textSize="18sp" />
 
@@ -229,7 +237,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:onClick="goToAddAssessment"
+        android:onClick="goToAddNote"
         app:layout_constraintBottom_toBottomOf="@+id/assessmentsListNotesScrollView"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />
@@ -250,6 +258,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Delete Course"
+        android:onClick="deleteCourse"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/assessmentListEditBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

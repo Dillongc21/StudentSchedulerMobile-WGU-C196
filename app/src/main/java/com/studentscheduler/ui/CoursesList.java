@@ -64,11 +64,13 @@ public class CoursesList extends AppCompatActivity {
         termEndView.setText(endFormatted);
 
         RecyclerView recyclerView = findViewById(R.id.coursesListRecyclerView);
-        List<Course> courses = repo.getAllCourses();
+        List<Course> termCourses = repo.getAllCourses().stream()
+                .filter(course -> course.getTermId() == id)
+                .collect(Collectors.toList());
         final CourseAdapter adapter = new CourseAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setCourses(courses);
+        adapter.setCourses(termCourses);
     }
 
 

@@ -15,12 +15,23 @@ public class Assessment {
     private Date start;
     private Date end;
     private String type;
+    private int courseId;
 
-    public Assessment(String title, Date start, Date end, String type) {
+    public Assessment(String title, Date start, Date end, String type, int courseId) {
         this.title = title;
         this.start = start;
         this.end = end;
         this.type = type;
+        this.courseId = courseId;
+    }
+
+    public Assessment(Assessment assessment) {
+        assessmentId = assessment.assessmentId;
+        title = assessment.title;
+        start = assessment.start;
+        end = assessment.end;
+        type = assessment.type;
+        courseId = assessment.courseId;
     }
 
     public int getAssessmentId() {
@@ -62,6 +73,10 @@ public class Assessment {
     public void setType(String type) {
         this.type = type;
     }
+
+    public int getCourseId() { return courseId; }
+
+    public void setCourseId(int courseId) { this.courseId = courseId; }
 
     @Override
     public String toString() {

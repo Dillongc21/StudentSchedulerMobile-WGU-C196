@@ -7,23 +7,33 @@
     android:padding="20dp"
     tools:context=".ui.AssessmentDetails">
 
-    <TextView
-        android:id="@+id/AssessmentDetailsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Assessment Title"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AssessmentDetailsTitle">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Title:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/assessmentDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +48,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/AssessmentDetailsStart"
+                android:id="@+id/assessmentDetailsStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -72,7 +82,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/AssessmentDetailsEnd"
+                android:id="@+id/assessmentDetailsEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -138,6 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Save"
+        android:onClick="saveAssessment"
         app:layout_constraintBottom_toTopOf="@+id/assessmentDetailsCancelBtn"
         app:layout_constraintLeft_toLeftOf="parent" />
 
