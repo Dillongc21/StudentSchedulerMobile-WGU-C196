@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.studentscheduler.R;
 import com.studentscheduler.db.Repository;
@@ -25,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CourseDetails extends AppCompatActivity {
@@ -92,12 +94,37 @@ public class CourseDetails extends AppCompatActivity {
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseTermSpinner.setAdapter(termAdapter);
 
+        String selectTermTitle;
+
         if (editCourseId == -1) {
-            String selectTermTitle = terms.stream()
+            getSupportActionBar().setTitle("Add Course");
+            selectTermTitle = terms.stream()
                     .filter(term -> term.getTermId() == defaultTermId)
                     .collect(Collectors.toList()).get(0).getTitle();
-            courseTermSpinner.setSelection(termTitles.indexOf(selectTermTitle));
+            String currentDate = sdf.format(new Date());
+            startField.setText(currentDate);
+            endField.setText(currentDate);
+        } else {
+            getSupportActionBar().setTitle("Edit Course");
+            courseToEdit = repo.getAllCourses().stream()
+                    .filter(course -> course.getCourseId() == editCourseId)
+                    .collect(Collectors.toList()).get(0);
+            selectTermTitle = terms.stream()
+                    .filter(term -> term.getTermId() == courseToEdit.getTermId())
+                    .collect(Collectors.toList()).get(0).getTitle();
+
+            int statusSpinnerPosition = statusAdapter.getPosition(courseToEdit.getStatus());
+
+            titleField.setText(courseToEdit.getTitle());
+            startField.setText(sdf.format(courseToEdit.getStart()));
+            endField.setText(sdf.format(courseToEdit.getEnd()));
+            statusSpinner.setSelection(statusSpinnerPosition);
+            iNameField.setText(courseToEdit.getInstructorName());
+            iPhoneField.setText(courseToEdit.getInstructorPhone());
+            iEmailField.setText(courseToEdit.getInstructorEmail());
         }
+
+        courseTermSpinner.setSelection(termTitles.indexOf(selectTermTitle));
 
         startField.setOnClickListener(view -> {
             Date date;
@@ -159,7 +186,12 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void saveCourse(View view) {
-        if (editCourseId == -1) {
+        if (startCalendar.after(endCalendar)) {
+            CharSequence toastText = "\"Start Date\" must come before \"End Date\"";
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, toastText, duration);
+            toast.show();
+        } else if (editCourseId == -1) {
             Course newCourse = new Course(titleField.getText().toString(), startCalendar.getTime(),
                     endCalendar.getTime(), statusSpinner.getSelectedItem().toString(),
                     iNameField.getText().toString(), iPhoneField.getText().toString(),
@@ -170,6 +202,25 @@ public class CourseDetails extends AppCompatActivity {
             Intent intent = new Intent(CourseDetails.this, CoursesList.class);
             intent.putExtra("id", newCourse.getTermId());
             startActivity(intent);
+        } else {
+            String newTermTitle = courseTermSpinner.getSelectedItem().toString();
+            int newTermId = terms.stream()
+                    .filter(term -> Objects.equals(term.getTitle(), newTermTitle))
+                    .collect(Collectors.toList()).get(0).getTermId();
+            Course courseCopy = new Course(courseToEdit);
+            courseCopy.setTitle(titleField.getText().toString());
+            courseCopy.setStart(startCalendar.getTime());
+            courseCopy.setEnd(endCalendar.getTime());
+            courseCopy.setStatus(statusSpinner.getSelectedItem().toString());
+            courseCopy.setInstructorName(iNameField.getText().toString());
+            courseCopy.setInstructorPhone(iPhoneField.getText().toString());
+            courseCopy.setInstructorEmail(iEmailField.getText().toString());
+            courseCopy.setTermId(newTermId);
+            repo.update(courseCopy);
+            Intent intent = new Intent(CourseDetails.this, CoursesList.class);
+            intent.putExtra("id", courseCopy.getTermId());
+            startActivity(intent);
+            this.finish();
         }
     }
 

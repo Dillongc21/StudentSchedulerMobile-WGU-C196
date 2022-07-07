@@ -97,6 +97,9 @@ public class AssessmentsList extends AppCompatActivity {
     }
 
     public void goToEditCourseDetails(View view) {
+        Intent intent = new Intent(AssessmentsList.this, CourseDetails.class);
+        intent.putExtra("courseId", id);
+        startActivity(intent);
     }
 
     public void goToAddNote(View view) {

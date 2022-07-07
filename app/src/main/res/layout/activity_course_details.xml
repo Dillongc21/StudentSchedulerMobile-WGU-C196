@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
     tools:context=".ui.CourseDetails">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,14 +28,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/termDetailsTitleLabel"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/courseDetailsTitleField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Title"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
@@ -48,14 +48,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/termDetailsStartLabel"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/courseDetailsStartField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -81,14 +81,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/termDetailsEndLabel"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/courseDetailsEndField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Status:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
                 <Spinner
                     android:id="@+id/courseDetailsStatusSpinner"
                     android:layout_width="match_parent"
@@ -129,13 +129,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Instructor Name"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
                 <EditText
                     android:id="@+id/courseDetailsInstructorNameField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -146,12 +146,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Instructor Phone:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
                 <EditText
                     android:id="@+id/courseDetailsInstructorPhoneField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -162,12 +162,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Instructor Email:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
                 <EditText
                     android:id="@+id/courseDetailsInstructorEmailField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -179,32 +179,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Course Term:"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
                 <Spinner
                     android:id="@+id/courseDetailsTermSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            <Button
+                android:id="@+id/courseDetailsSaveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:onClick="saveCourse"
+                android:text="@string/termDetailsSaveBtn"
+                />
+
+            <Button
+                android:id="@+id/courseDetailsCancelBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="cancelActivity"
+                android:text="@string/termDetailsCancelBtn"
+                />
+
         </LinearLayout>
 
-    </ScrollView>
-
-    <Button
-        android:id="@+id/courseDetailsSaveBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="saveCourse"
-        android:text="@string/termDetailsSaveBtn"
-        app:layout_constraintBottom_toTopOf="@+id/courseDetailsCancelBtn"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/courseDetailsCancelBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="cancelActivity"
-        android:text="@string/termDetailsCancelBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

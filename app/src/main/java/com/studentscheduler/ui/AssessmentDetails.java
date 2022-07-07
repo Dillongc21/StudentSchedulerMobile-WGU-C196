@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class AssessmentDetails extends AppCompatActivity {
 
@@ -36,6 +38,8 @@ public class AssessmentDetails extends AppCompatActivity {
 
     private int courseId;
     private int assessmentId;
+
+    private Assessment toEdit;
 
     private DatePickerDialog.OnDateSetListener startDateListener;
     private DatePickerDialog.OnDateSetListener endDateListener;
@@ -55,6 +59,8 @@ public class AssessmentDetails extends AppCompatActivity {
         titleField = findViewById(R.id.assessmentDetailsTitle);
         startField = findViewById(R.id.assessmentDetailsStart);
         endField = findViewById(R.id.assessmentDetailsEnd);
+        startNotify = (CheckBox) findViewById(R.id.assessmentDetailsStartCheckBox);
+        endNotify = (CheckBox) findViewById(R.id.assessmentDetailsEndCheckBox);
         performanceRB = (RadioButton) findViewById(R.id.assessmentDetailsPerformanceRB);
         objectiveRB = (RadioButton) findViewById(R.id.assessmentDetailsObjectiveRB);
 
@@ -71,6 +77,19 @@ public class AssessmentDetails extends AppCompatActivity {
             String currentDate = sdf.format(new Date());
             startField.setText(currentDate);
             endField.setText(currentDate);
+        } else {
+            getSupportActionBar().setTitle("Edit Assessment");
+            toEdit = repo.getAllAssessments().stream()
+                    .filter(assessment -> assessment.getAssessmentId() == assessmentId)
+                    .collect(Collectors.toList()).get(0);
+            titleField.setText(toEdit.getTitle());
+            startField.setText(sdf.format(toEdit.getStart()));
+            endField.setText(sdf.format(toEdit.getEnd()));
+
+            if (Objects.equals(toEdit.getType(), "Performance"))
+                performanceRB.setChecked(true);
+            else if (Objects.equals(toEdit.getType(), "Objective"))
+                objectiveRB.setChecked(true);
         }
 
         startField.setOnClickListener(view -> {
@@ -137,7 +156,12 @@ public class AssessmentDetails extends AppCompatActivity {
 
     public void saveAssessment(View view) {
         RadioButton selected = getRBSelection();
-        if (selected == null) {
+        if (startCalendar.after(endCalendar)) {
+            CharSequence toastText = "\"Start Date\" must come before \"End Date\"";
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, toastText, duration);
+            toast.show();
+        } else if (selected == null) {
             CharSequence toastText = "Please select an option for \"Type\"";
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(AssessmentDetails.this, toastText, duration);
@@ -151,6 +175,17 @@ public class AssessmentDetails extends AppCompatActivity {
             Intent intent = new Intent(AssessmentDetails.this, AssessmentsList.class);
             intent.putExtra("id", courseId);
             startActivity(intent);
+        } else {
+            Assessment assessmentCopy = new Assessment(toEdit);
+            assessmentCopy.setTitle(titleField.getText().toString());
+            assessmentCopy.setStart(startCalendar.getTime());
+            assessmentCopy.setEnd(endCalendar.getTime());
+            assessmentCopy.setType(selected.getText().toString());
+            repo.update(assessmentCopy);
+            Intent intent = new Intent(AssessmentDetails.this, AssessmentsList.class);
+            intent.putExtra("id", assessmentCopy.getCourseId());
+            startActivity(intent);
+            this.finish();
         }
     }
 

@@ -8,7 +8,7 @@
     tools:context=".ui.AssessmentDisplay">
 
     <TextView
-        android:id="@+id/AssessmentDisplayTitle"
+        android:id="@+id/assessmentDisplayTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Assessment Title"
@@ -23,7 +23,7 @@
         android:orientation="vertical"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AssessmentDisplayTitle">
+        app:layout_constraintTop_toBottomOf="@+id/assessmentDisplayTitle">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/AssessmentDisplayStart"
+                android:id="@+id/assessmentDisplayStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp" />
@@ -72,7 +72,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/AssessmentDisplayEnd"
+                android:id="@+id/assessmentDisplayEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp" />
@@ -142,6 +142,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/assessmentDisplayDeleteBtn"
         android:layout_marginBottom="10dp"
+        android:onClick="goToEditAssessment"
         />
 
     <Button
@@ -151,6 +152,8 @@
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="Delete Assessment"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="deleteAssessment"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

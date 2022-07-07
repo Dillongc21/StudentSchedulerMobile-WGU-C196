@@ -142,8 +142,14 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public void saveTerm(View view) {
+        if (startCalendar.after(endCalendar)) {
+            CharSequence toastText = "\"Start Date\" must come before \"End Date\"";
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, toastText, duration);
+            toast.show();
+        }
         // Add New Term
-        if(editTermId == -1) {
+        else if(editTermId == -1) {
             // Check for Duplicate Title
             if (termTitleIsDuplicate()){
                 CharSequence toastText = "This title: \"" + titleField.getText().toString() + "\" "

@@ -187,7 +187,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/assessmentsListStatusArea" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/assessmentsListAssessmentsScrollView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -198,7 +198,7 @@
             android:id="@+id/assessmentsListAssessmentsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:id="@+id/assessmentsListCourseNotesHeader"
@@ -210,7 +210,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/assessmentsListAssessmentsScrollView" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/assessmentsListNotesScrollView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -221,7 +221,7 @@
             android:id="@+id/assessmentsListNotesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/assessmentListAddAssessmentBtn"
         android:layout_width="wrap_content"
