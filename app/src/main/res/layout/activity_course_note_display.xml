@@ -8,22 +8,13 @@
     tools:context=".ui.CourseNoteDisplay">
 
     <TextView
-        android:id="@+id/courseNoteDisplayHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Course Note"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/courseNoteDisplayNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNoteDisplayHeader" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <Button
         android:id="@+id/courseNoteDisplayEditBtn"

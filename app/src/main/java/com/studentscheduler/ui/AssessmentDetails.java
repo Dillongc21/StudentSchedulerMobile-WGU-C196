@@ -2,7 +2,10 @@ package com.studentscheduler.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,6 +44,9 @@ public class AssessmentDetails extends AppCompatActivity {
 
     private Assessment toEdit;
 
+    private int startNotifyId;
+    private int endNotifyId;
+
     private DatePickerDialog.OnDateSetListener startDateListener;
     private DatePickerDialog.OnDateSetListener endDateListener;
 
@@ -77,14 +83,23 @@ public class AssessmentDetails extends AppCompatActivity {
             String currentDate = sdf.format(new Date());
             startField.setText(currentDate);
             endField.setText(currentDate);
+            startNotifyId = -1;
+            endNotifyId = -1;
         } else {
             getSupportActionBar().setTitle("Edit Assessment");
+
             toEdit = repo.getAllAssessments().stream()
                     .filter(assessment -> assessment.getAssessmentId() == assessmentId)
                     .collect(Collectors.toList()).get(0);
             titleField.setText(toEdit.getTitle());
             startField.setText(sdf.format(toEdit.getStart()));
             endField.setText(sdf.format(toEdit.getEnd()));
+
+            if (toEdit.getStartNotifyId() != -1)
+                startNotify.setChecked(true);
+            if (toEdit.getEndNotifyId() != -1)
+                endNotify.setChecked(true);
+
 
             if (Objects.equals(toEdit.getType(), "Performance"))
                 performanceRB.setChecked(true);
@@ -168,14 +183,26 @@ public class AssessmentDetails extends AppCompatActivity {
             toast.show();
         }
         else if (assessmentId == -1) {
+
+            if (startNotify.isChecked())
+                setStartNotification();
+            if (endNotify.isChecked())
+                setEndNotification();
+
             Assessment newAssessment = new Assessment(titleField.getText().toString(),
-                    startCalendar.getTime(), endCalendar.getTime(), selected.getText().toString(),
-                    courseId);
+                    startCalendar.getTime(), endCalendar.getTime(), startNotifyId, endNotifyId,
+                    selected.getText().toString(), courseId);
             repo.insert(newAssessment);
             Intent intent = new Intent(AssessmentDetails.this, AssessmentsList.class);
             intent.putExtra("id", courseId);
             startActivity(intent);
         } else {
+
+            if (startNotify.isChecked() && toEdit.getStartNotifyId() == -1)
+                setStartNotification();
+            if (endNotify.isChecked() && toEdit.getEndNotifyId() == -1)
+                setEndNotification();
+
             Assessment assessmentCopy = new Assessment(toEdit);
             assessmentCopy.setTitle(titleField.getText().toString());
             assessmentCopy.setStart(startCalendar.getTime());
@@ -187,6 +214,30 @@ public class AssessmentDetails extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         }
+    }
+
+    private void setStartNotification() {
+        Long trigger = startCalendar.getTime().getTime();
+        startNotifyId = Home.numAlert;
+        Intent intent = new Intent(AssessmentDetails.this, MyReceiver.class);
+        intent.putExtra("key", "Assessment \"" + titleField.getText().toString() + "\" "
+                + "starts today!");
+        PendingIntent sender = PendingIntent.getBroadcast(AssessmentDetails.this, Home.numAlert++,
+                intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+    }
+
+    private void setEndNotification() {
+        Long trigger = endCalendar.getTime().getTime();
+        endNotifyId = Home.numAlert;
+        Intent intent = new Intent(AssessmentDetails.this, MyReceiver.class);
+        intent.putExtra("key", "Assessment \"" + titleField.getText().toString() + "\" "
+                + "ends today!");
+        PendingIntent sender = PendingIntent.getBroadcast(AssessmentDetails.this, Home.numAlert++,
+                intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
     }
 
     private RadioButton getRBSelection() {

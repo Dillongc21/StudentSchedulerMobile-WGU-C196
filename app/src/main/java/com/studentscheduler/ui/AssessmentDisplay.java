@@ -63,6 +63,11 @@ public class AssessmentDisplay extends AppCompatActivity {
         startView.setText(startFormatted);
         endView.setText(endFormatted);
 
+        if (displayAssessment.getStartNotifyId() != -1)
+            startNotify.setChecked(true);
+        if (displayAssessment.getEndNotifyId() != -1)
+            endNotify.setChecked(true);
+
         if (Objects.equals(displayAssessment.getType(), "Performance"))
             performanceRB.setChecked(true);
         else if (Objects.equals(displayAssessment.getType(), "Objective"))

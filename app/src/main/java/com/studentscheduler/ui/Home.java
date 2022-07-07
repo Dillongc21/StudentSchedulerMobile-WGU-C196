@@ -10,6 +10,8 @@ import com.studentscheduler.R;
 
 public class Home extends AppCompatActivity {
 
+    public static int numAlert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

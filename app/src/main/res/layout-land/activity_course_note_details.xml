@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".ui.CourseNoteDetails">
+
+        <EditText
+            android:id="@+id/courseNoteDetailsNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:lines="5"
+            android:scrollbars="vertical"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/courseNoteDetailsSaveBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:onClick="saveCourseNote"
+            android:text="Save"
+            app:layout_constraintTop_toBottomOf="@id/courseNoteDetailsNote"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <Button
+            android:id="@+id/courseNoteDetailsCancelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="cancelActivity"
+            android:text="Cancel"
+            app:layout_constraintTop_toBottomOf="@id/courseNoteDetailsSaveBtn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

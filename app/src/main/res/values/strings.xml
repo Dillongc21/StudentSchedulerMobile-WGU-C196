@@ -14,6 +14,8 @@
     <string name="termDetailsSaveBtn">Save</string>
     <string name="coursesListEditBtn">Edit Term</string>
     <string name="coursesListDeleteBtn">Delete Term</string>
+    <string name="channelName">mychannel</string>
+    <string name="channelDescription">myChannelDescription</string>
     <string-array name="status_array">
         <item>In Progress</item>
         <item>Completed</item>

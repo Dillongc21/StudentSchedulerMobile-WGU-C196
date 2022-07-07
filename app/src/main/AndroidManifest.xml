@@ -13,28 +13,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentScheduler"
         tools:targetApi="31">
+        <receiver
+            android:name=".ui.MyReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <activity
             android:name=".ui.CourseNoteDetails"
             android:exported="false" />
         <activity
             android:name=".ui.CourseNoteDisplay"
+            android:exported="false"
             android:label="Course Note"
-            android:parentActivityName=".ui.AssessmentsList"
-            android:exported="false" />
+            android:parentActivityName=".ui.AssessmentsList" />
         <activity
             android:name=".ui.AssessmentDetails"
             android:exported="false" />
         <activity
             android:name=".ui.AssessmentDisplay"
+            android:exported="false"
             android:label="Assessment Info"
-            android:parentActivityName=".ui.AssessmentsList"
-            android:exported="false" />
+            android:parentActivityName=".ui.AssessmentsList" />
         <activity
             android:name=".ui.AssessmentsList"
             android:exported="false"
-            android:parentActivityName=".ui.CoursesList"
             android:label="Course Assessments and Notes"
-            />
+            android:parentActivityName=".ui.CoursesList" />
         <activity
             android:name=".ui.CourseDetails"
             android:exported="false"
@@ -46,8 +50,7 @@
             android:parentActivityName=".ui.TermsList" />
         <activity
             android:name=".ui.TermDetails"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".ui.Home"
             android:exported="true">
@@ -60,8 +63,8 @@
         <activity
             android:name=".ui.TermsList"
             android:exported="false"
-            android:parentActivityName=".ui.Home"
-            android:label="All Terms" />
+            android:label="All Terms"
+            android:parentActivityName=".ui.Home" />
     </application>
 
 </manifest>

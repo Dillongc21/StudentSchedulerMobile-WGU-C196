@@ -14,17 +14,22 @@ public class Course {
     private String title;
     private Date start;
     private Date end;
+    private int startNotifyId;
+    private int endNotifyId;
     private String status;
     private String instructorName;
     private String instructorPhone;
     private String instructorEmail;
     private int termId;
 
-    public Course(String title, Date start, Date end, String status, String instructorName,
-                  String instructorPhone, String instructorEmail, int termId) {
+    public Course(String title, Date start, Date end, int startNotifyId, int endNotifyId,
+                  String status, String instructorName, String instructorPhone,
+                  String instructorEmail, int termId) {
         this.title = title;
         this.start = start;
         this.end = end;
+        this.startNotifyId = startNotifyId;
+        this.endNotifyId = endNotifyId;
         this.status = status;
         this.instructorName = instructorName;
         this.instructorPhone = instructorPhone;
@@ -37,6 +42,8 @@ public class Course {
         title = course.title;
         start = course.start;
         end = course.end;
+        startNotifyId = course.startNotifyId;
+        endNotifyId = course.endNotifyId;
         status = course.status;
         instructorName = course.instructorName;
         instructorPhone = course.instructorPhone;
@@ -56,6 +63,14 @@ public class Course {
 
     public Date getEnd() {
         return end;
+    }
+
+    public int getStartNotifyId() {
+        return startNotifyId;
+    }
+
+    public int getEndNotifyId() {
+        return endNotifyId;
     }
 
     public String getStatus() {
@@ -92,6 +107,14 @@ public class Course {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public void setStartNotifyId(int startNotifyId) {
+        this.startNotifyId = startNotifyId;
+    }
+
+    public void setEndNotifyId(int endNotifyId) {
+        this.endNotifyId = endNotifyId;
     }
 
     public void setStatus(String status) {

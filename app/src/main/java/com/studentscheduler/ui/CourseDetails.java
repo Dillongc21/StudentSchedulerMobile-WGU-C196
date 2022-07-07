@@ -2,7 +2,10 @@ package com.studentscheduler.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -10,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,11 +41,16 @@ public class CourseDetails extends AppCompatActivity {
     private EditText titleField;
     private EditText startField;
     private EditText endField;
+    private CheckBox startNotify;
+    private CheckBox endNotify;
     private Spinner statusSpinner;
     private EditText iNameField;
     private EditText iPhoneField;
     private EditText iEmailField;
     private Spinner courseTermSpinner;
+
+    private int startNotifyId;
+    private int endNotifyId;
 
     private DatePickerDialog.OnDateSetListener startDateListener;
     private DatePickerDialog.OnDateSetListener endDateListener;
@@ -70,6 +79,10 @@ public class CourseDetails extends AppCompatActivity {
         titleField = findViewById(R.id.courseDetailsTitleField);
         startField = findViewById(R.id.courseDetailsStartField);
         endField = findViewById(R.id.courseDetailsEndField);
+
+        startNotify = (CheckBox) findViewById(R.id.courseDetailsStartNotify);
+        endNotify = (CheckBox) findViewById(R.id.courseDetailsEndNotify);
+
         statusSpinner = findViewById(R.id.courseDetailsStatusSpinner);
         iNameField = findViewById(R.id.courseDetailsInstructorNameField);
         iPhoneField = findViewById(R.id.courseDetailsInstructorPhoneField);
@@ -98,6 +111,8 @@ public class CourseDetails extends AppCompatActivity {
 
         if (editCourseId == -1) {
             getSupportActionBar().setTitle("Add Course");
+            startNotifyId = -1;
+            endNotifyId = -1;
             selectTermTitle = terms.stream()
                     .filter(term -> term.getTermId() == defaultTermId)
                     .collect(Collectors.toList()).get(0).getTitle();
@@ -106,6 +121,7 @@ public class CourseDetails extends AppCompatActivity {
             endField.setText(currentDate);
         } else {
             getSupportActionBar().setTitle("Edit Course");
+
             courseToEdit = repo.getAllCourses().stream()
                     .filter(course -> course.getCourseId() == editCourseId)
                     .collect(Collectors.toList()).get(0);
@@ -122,6 +138,12 @@ public class CourseDetails extends AppCompatActivity {
             iNameField.setText(courseToEdit.getInstructorName());
             iPhoneField.setText(courseToEdit.getInstructorPhone());
             iEmailField.setText(courseToEdit.getInstructorEmail());
+
+            if (courseToEdit.getStartNotifyId() != -1)
+                startNotify.setChecked(true);
+            if (courseToEdit.getEndNotifyId() != -1)
+                endNotify.setChecked(true);
+
         }
 
         courseTermSpinner.setSelection(termTitles.indexOf(selectTermTitle));
@@ -192,10 +214,16 @@ public class CourseDetails extends AppCompatActivity {
             Toast toast = Toast.makeText(this, toastText, duration);
             toast.show();
         } else if (editCourseId == -1) {
+
+            if (startNotify.isChecked())
+                setStartNotification();
+            if (endNotify.isChecked())
+                setEndNotification();
+
             Course newCourse = new Course(titleField.getText().toString(), startCalendar.getTime(),
-                    endCalendar.getTime(), statusSpinner.getSelectedItem().toString(),
-                    iNameField.getText().toString(), iPhoneField.getText().toString(),
-                    iEmailField.getText().toString(),
+                    endCalendar.getTime(), startNotifyId, endNotifyId,
+                    statusSpinner.getSelectedItem().toString(), iNameField.getText().toString(),
+                    iPhoneField.getText().toString(), iEmailField.getText().toString(),
                     getTermIdFromTitle(courseTermSpinner.getSelectedItem().toString()));
             repo.insert(newCourse);
 
@@ -203,6 +231,12 @@ public class CourseDetails extends AppCompatActivity {
             intent.putExtra("id", newCourse.getTermId());
             startActivity(intent);
         } else {
+
+            if (startNotify.isChecked() && courseToEdit.getStartNotifyId() == -1)
+                setStartNotification();
+            if (endNotify.isChecked() && courseToEdit.getEndNotifyId() == -1)
+                setEndNotification();
+
             String newTermTitle = courseTermSpinner.getSelectedItem().toString();
             int newTermId = terms.stream()
                     .filter(term -> Objects.equals(term.getTitle(), newTermTitle))
@@ -223,6 +257,31 @@ public class CourseDetails extends AppCompatActivity {
             this.finish();
         }
     }
+
+    private void setStartNotification() {
+        Long trigger = startCalendar.getTime().getTime();
+        startNotifyId = Home.numAlert;
+        Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
+        intent.putExtra("key", "Course \"" + titleField.getText().toString() + "\" "
+                + "starts today!");
+        PendingIntent sender = PendingIntent.getBroadcast(CourseDetails.this, Home.numAlert++,
+                intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+    }
+
+    private void setEndNotification() {
+        Long trigger = endCalendar.getTime().getTime();
+        endNotifyId = Home.numAlert;
+        Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
+        intent.putExtra("key", "Course \"" + titleField.getText().toString() + "\" "
+                + "ends today!");
+        PendingIntent sender = PendingIntent.getBroadcast(CourseDetails.this, Home.numAlert++,
+                intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+    }
+
 
     private void updateStartField() {
         startField.setText(sdf.format(startCalendar.getTime()));

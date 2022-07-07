@@ -14,13 +14,18 @@ public class Assessment {
     private String title;
     private Date start;
     private Date end;
+    private int startNotifyId;
+    private int endNotifyId;
     private String type;
     private int courseId;
 
-    public Assessment(String title, Date start, Date end, String type, int courseId) {
+    public Assessment(String title, Date start, Date end, int startNotifyId, int endNotifyId,
+                      String type, int courseId) {
         this.title = title;
         this.start = start;
         this.end = end;
+        this.startNotifyId = startNotifyId;
+        this.endNotifyId = endNotifyId;
         this.type = type;
         this.courseId = courseId;
     }
@@ -64,6 +69,22 @@ public class Assessment {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public int getStartNotifyId() {
+        return startNotifyId;
+    }
+
+    public void setStartNotifyId(int startNotifyId) {
+        this.startNotifyId = startNotifyId;
+    }
+
+    public int getEndNotifyId() {
+        return endNotifyId;
+    }
+
+    public void setEndNotifyId(int endNotifyId) {
+        this.endNotifyId = endNotifyId;
     }
 
     public String getType() {
