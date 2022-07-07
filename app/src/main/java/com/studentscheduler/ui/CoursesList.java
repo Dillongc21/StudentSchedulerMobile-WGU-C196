@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,10 @@ public class CoursesList extends AppCompatActivity {
 
     SimpleDateFormat sdf;
 
+    Repository repo;
+
+    Term displayTerm;
+
     TextView termTitleView;
     TextView termStartView;
     TextView termEndView;
@@ -44,9 +49,9 @@ public class CoursesList extends AppCompatActivity {
 
         id = getIntent().getIntExtra("id", -1);
 
-        Repository repo = new Repository(getApplication());
+        repo = new Repository(getApplication());
 
-        Term displayTerm = repo.getAllTerms().stream()
+        displayTerm = repo.getAllTerms().stream()
                 .filter(term -> term.getTermId() == id)
                 .collect(Collectors.toList()).get(0);
 
@@ -85,5 +90,23 @@ public class CoursesList extends AppCompatActivity {
         intent.putExtra("termId", id);
         intent.putExtra("courseId", -1);
         startActivity(intent);
+    }
+
+    public void deleteTerm(View view) {
+        List<Course> termCourses = repo.getAllCourses().stream()
+                .filter(course -> course.getTermId() == id)
+                .collect(Collectors.toList());
+
+        if (!termCourses.isEmpty()) {
+            new AlertDialog.Builder(CoursesList.this)
+                    .setTitle("Delete All Term Courses")
+                    .setMessage("You must delete all courses associated with this term before deletion.")
+                    .setPositiveButton("OK", null)
+                    .show();
+        } else {
+            repo.delete(displayTerm);
+            Intent intent = new Intent(CoursesList.this, TermsList.class);
+            startActivity(intent);
+        }
     }
 }

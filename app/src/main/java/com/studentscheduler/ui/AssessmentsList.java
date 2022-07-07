@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,44 +27,37 @@ public class AssessmentsList extends AppCompatActivity {
 
     private int id;
 
-    private String startFormatted;
-    private String endFormatted;
+    private Repository repo;
 
-    SimpleDateFormat sdf;
-
-    TextView courseTitleView;
-    TextView courseStartView;
-    TextView courseEndView;
-    TextView courseINameView;
-    TextView courseIPhoneView;
-    TextView courseIEmailView;
-    TextView courseStatusView;
+    private Course displayCourse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessments_list);
 
-        courseTitleView = findViewById(R.id.assessmentsListCourseTitle);
-        courseStartView = findViewById(R.id.assessmentsListCourseStart);
-        courseEndView = findViewById(R.id.assessmentsListCourseEnd);
-        courseINameView = findViewById(R.id.assessmentsListCourseInstructorName);
-        courseIPhoneView = findViewById(R.id.assessmentsListCourseInstructorPhone);
-        courseIEmailView = findViewById(R.id.assessmentsListCourseInstructorEmail);
-        courseStatusView = findViewById(R.id.assessmentsListCourseStatus);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView courseTitleView = findViewById(R.id.assessmentsListCourseTitle);
+        TextView courseStartView = findViewById(R.id.assessmentsListCourseStart);
+        TextView courseEndView = findViewById(R.id.assessmentsListCourseEnd);
+        TextView courseINameView = findViewById(R.id.assessmentsListCourseInstructorName);
+        TextView courseIPhoneView = findViewById(R.id.assessmentsListCourseInstructorPhone);
+        TextView courseIEmailView = findViewById(R.id.assessmentsListCourseInstructorEmail);
+        TextView courseStatusView = findViewById(R.id.assessmentsListCourseStatus);
 
         id = getIntent().getIntExtra("id", -1);
 
-        Repository repo = new Repository(getApplication());
+        repo = new Repository(getApplication());
 
-        Course displayCourse = repo.getAllCourses()
+        displayCourse = repo.getAllCourses()
                 .stream().filter(course -> course.getCourseId() == id)
                 .collect(Collectors.toList()).get(0);
 
         String myFormat = "MM/dd/yy";
-        sdf = new SimpleDateFormat(myFormat, Locale.US);
-        startFormatted = sdf.format(displayCourse.getStart());
-        endFormatted = sdf.format(displayCourse.getEnd());
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        String startFormatted = sdf.format(displayCourse.getStart());
+        String endFormatted = sdf.format(displayCourse.getEnd());
 
         courseTitleView.setText(displayCourse.getTitle());
         courseStartView.setText(startFormatted);
@@ -103,8 +98,34 @@ public class AssessmentsList extends AppCompatActivity {
     }
 
     public void goToAddNote(View view) {
+        Intent intent = new Intent(AssessmentsList.this, CourseNoteDetails.class);
+        intent.putExtra("courseNoteId", -1);
+        intent.putExtra("courseId", id);
+        startActivity(intent);
     }
 
     public void deleteCourse(View view) {
+        int termId = displayCourse.getTermId();
+        repo.delete(displayCourse);
+        Intent intent = new Intent(AssessmentsList.this, CoursesList.class);
+        intent.putExtra("id", termId);
+        startActivity(intent);
+        this.finish();
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_assessmentslist, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(AssessmentsList.this, CoursesList.class);
+                intent.putExtra("id", displayCourse.getTermId());
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

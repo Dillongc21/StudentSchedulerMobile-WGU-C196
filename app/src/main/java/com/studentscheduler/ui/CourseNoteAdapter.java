@@ -35,7 +35,8 @@ public class CourseNoteAdapter extends RecyclerView.Adapter<CourseNoteAdapter.Co
                 int position = getAdapterPosition();
                 final CourseNote current = courseNotes.get(position);
                 Intent intent = new Intent(context, CourseNoteDisplay.class);
-                intent.putExtra("id", current.getCourseNoteId());
+                intent.putExtra("courseNoteId", current.getCourseNoteId());
+                intent.putExtra("courseId", current.getCourseId());
                 context.startActivity(intent);
             });
         }

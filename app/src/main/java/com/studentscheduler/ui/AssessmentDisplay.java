@@ -68,20 +68,6 @@ public class AssessmentDisplay extends AppCompatActivity {
         else if (Objects.equals(displayAssessment.getType(), "Objective"))
             objectiveRB.setChecked(true);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_assessmentdisplay, menu);
-        return true;
-    }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void goToEditAssessment(View view) {
@@ -96,5 +82,20 @@ public class AssessmentDisplay extends AppCompatActivity {
         Intent intent = new Intent(AssessmentDisplay.this, AssessmentsList.class);
         intent.putExtra("id", courseId);
         startActivity(intent);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_assessmentdisplay, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(AssessmentDisplay.this, AssessmentsList.class);
+                intent.putExtra("id", displayAssessment.getCourseId());
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

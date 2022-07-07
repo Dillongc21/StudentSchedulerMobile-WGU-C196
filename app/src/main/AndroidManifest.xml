@@ -19,6 +19,7 @@
         <activity
             android:name=".ui.CourseNoteDisplay"
             android:label="Course Note"
+            android:parentActivityName=".ui.AssessmentsList"
             android:exported="false" />
         <activity
             android:name=".ui.AssessmentDetails"
@@ -26,10 +27,12 @@
         <activity
             android:name=".ui.AssessmentDisplay"
             android:label="Assessment Info"
+            android:parentActivityName=".ui.AssessmentsList"
             android:exported="false" />
         <activity
             android:name=".ui.AssessmentsList"
             android:exported="false"
+            android:parentActivityName=".ui.CoursesList"
             android:label="Course Assessments and Notes"
             />
         <activity
@@ -44,7 +47,7 @@
         <activity
             android:name=".ui.TermDetails"
             android:exported="false"
-            android:parentActivityName=".ui.TermsList" />
+            />
         <activity
             android:name=".ui.Home"
             android:exported="true">
@@ -57,6 +60,7 @@
         <activity
             android:name=".ui.TermsList"
             android:exported="false"
+            android:parentActivityName=".ui.Home"
             android:label="All Terms" />
     </application>
 
