@@ -252,14 +252,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assessmentsListNotesScrollView" />
 
-    <Button
-        android:id="@+id/assessmentsListDeleteBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Delete Course"
-        android:onClick="deleteCourse"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/assessmentListEditBtn" />
+        <Button
+            android:id="@+id/assessmentsListDeleteBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:onClick="deleteCourse"
+            android:text="Delete Course"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/assessmentListEditBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
